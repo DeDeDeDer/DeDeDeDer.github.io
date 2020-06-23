@@ -15,7 +15,7 @@ filelock==3.0.12
 
 funcsigs==1.0.2
 future==0.18.1
-httplib2==0.14.0
+httplib2==0.18.0
 idna==2.8
 isodate==0.6.0
 jdcal==1.4.1
