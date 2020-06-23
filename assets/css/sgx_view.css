@@ -1,0 +1,26 @@
+.mainChart-Box{
+    background-color: #333333;
+    padding: 25px;
+    position: center;
+}
+
+.mainChart-Box.inside-mainChart-Box{
+    background-color: #333333;
+    padding: 25px;
+    position: center;
+}
+
+.mainChart1-dropdown-col{
+    float: left;
+    width: 33%
+}
+.mainChart1-dropdown-row:after{
+    content: "";
+    display: table;
+
+    clear: both;
+    width: 10%
+}
+.mainChart1-dropdown-row{
+    width: 50%;
+}
