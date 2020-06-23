@@ -1,1 +1,1 @@
-web: gunicorn dc-sgx-app:server
+web: gunicorn sgx_view:server
