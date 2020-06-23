@@ -17,6 +17,7 @@ pd.set_option('display.max_columns', 1000)
 pd.set_option('display.width', 1000)
 # https://community.plotly.com/t/how-do-i-use-dash-to-add-local-css/4914/14
 
+
 def convert_df_cols_to_float(df, cols_list):
     df[cols_list] = df[cols_list].applymap(lambda x: x.strip().replace(',','') if isinstance(x, str) else x)
     df[cols_list] = df[cols_list].applymap(lambda x: x.strip().replace('(', '-').replace(')', '') if isinstance(x, str) else x)
@@ -69,6 +70,7 @@ return_dur_options = [{'label': '1mth', 'value': '1mth'},
 
 
 app = dash.Dash(__name__)
+server = app.server
 app.layout = html.Div([
     html.Link(
         rel='stylesheet',
@@ -252,5 +254,5 @@ def update_graph_2(option_slctd1, option_slctd2):
 
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server() # debug=True
     x=1
