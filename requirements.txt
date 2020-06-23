@@ -1,5 +1,5 @@
 appscript==1.1.0
-camelot-py==0.7.3
+
 certifi==2019.9.11
 cffi==1.13.1
 chardet==3.0.4
@@ -12,7 +12,7 @@ distro==1.4.0
 et-xmlfile==1.0.1
 etelemetry==0.1.2
 filelock==3.0.12
-fitz==0.0.1.dev2
+
 funcsigs==1.0.2
 future==0.18.1
 httplib2==0.14.0
@@ -37,10 +37,10 @@ pycparser==2.19
 pycryptodome==3.9.0
 pydot==1.4.1
 pydotplus==2.0.2
-PyMuPDF==1.16.5
+
 pyOpenSSL==19.0.0
 pyparsing==2.4.2
-PyPDF2==1.26.0
+
 python-dateutil==2.8.0
 pytz==2019.3
 pyxnat==1.2.0.0
