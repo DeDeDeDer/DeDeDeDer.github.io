@@ -77,7 +77,27 @@ app.layout = html.Div([
         href='assets/css/sgx_view.css'
     ),
 
-    html.H1("SGX Overview", style={'text-align': 'centre'}),
+    # html.Div([]),
+    html.H1("SGX Overview", style={'text-align': 'centre', 'font-weight': 'bold'}, className='header-Banner'),
+
+    html.Div([
+        html.Div([
+            html.Li(['Done by DCMK'], style={'list-style-type': 'None'}),
+            html.Li(['Last Updated: 24 June 2020'], style={'list-style-type': 'None'}),
+            html.Li(['Data Source: Yahoo Finance'], style={'list-style-type': 'None'}),
+            html.Li(['This dashboard aims to visualize infomation on the various stocks listed on the Straits Times Index in Singapore'], style={'list-style-type': 'None'}),
+
+        ], className='Header-brief'),
+
+        html.A(['Notes'], style={'font-weight': 'bold'}),
+        html.Div([
+            html.Li(['You may select items in the Legend to temporarily remove data in that specific year']),
+            html.Li(['Financial Statements Data is only limited to the Top-10 Companies for better visualization']),
+            html.Li(['Rolling returns only limited to the range of -100% to 100% for better visualization']),
+            html.Li(['Do let me know if there are any discrepancies in the data'])
+        ], className='Header-Notes'),
+
+    ], className='Headers'),
 
     html.Div([
         html.Div([
@@ -146,7 +166,7 @@ app.layout = html.Div([
 
 
 
-])
+], className='DC-Backdrop')
 
 app.css.append_css({
     'external_url': "https://codepen.io/chriddyp/pen/bWLwgP.css"
@@ -167,7 +187,7 @@ def set_cities_options(selected_country):
 def set_cities_value(available_options):
     return available_options[0]['value']
 
-
+from plotly.graph_objects import *
 # Connect the Plotly graphs with Dash Component
 @app.callback(
     # [Output(component_id='output_container', component_property='children'),
@@ -197,10 +217,11 @@ def update_graph(option_slctd1, option_slctd2, option_slctd3):
     fig = px.bar(data_frame=df_long, x='SGX_CoyName', y='value', color='variable',
                  barmode='group',
                  template='plotly_dark',
-                 width=1600,
-                 height=400
+                 width=1100, height=400
                  )
     cht1_title = 'Financial Statements Overview for {} Sector'.format(option_slctd1)
+
+    # layout = Layout(paper_bgcolor='rgb(0,0,0,0',plot_bgcolor='rgb(0,0,0,0')
     fig.update_layout(title=cht1_title,
                       xaxis_title="Company Names",
                       yaxis_title="Value"
@@ -233,22 +254,24 @@ def update_graph_2(option_slctd1, option_slctd2):
     dff = dff[dff["Sector"] == option_slctd1]
     dff = dff.dropna(subset=[option_slctd2])
 
+    dff[option_slctd2] = dff[option_slctd2].apply(lambda x: x*100)
+
     dff = dff.iloc[:, :]
-    dff = dff.loc[dff[option_slctd2] <= 1]
-    dff = dff.loc[dff[option_slctd2] >= -1]
+    # dff = dff.loc[dff[option_slctd2] <= 1.5]
+    # dff = dff.loc[dff[option_slctd2] >= -1.5]
 
     print(dff)
     fig = px.box(dff, x="Company_Name", y=option_slctd2,
                  template='plotly_dark',
-                 width=1600, height=600,
+                 width=1100, height=600,
 
                  )
-
     cht2_title = '{} Rolling Returns for {} Sector'.format(option_slctd2, option_slctd1)
     fig.update_layout(title=cht2_title,
                       xaxis_title="Company Names",
-                      yaxis_title="{} % Change".format(option_slctd2)
+                      yaxis_title="{} % Change".format(option_slctd2),
                       )
+    fig.update_yaxes(range=[-100, 100])
     return fig
 
 
