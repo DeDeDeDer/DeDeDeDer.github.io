@@ -68,7 +68,9 @@ return_dur_options = [{'label': '1mth', 'value': '1mth'},
                       {'label': '12mth', 'value': '12mth'},
                       ]
 
-
+colors = {
+    'background': '#0C0F0A'
+}
 app = dash.Dash(__name__)
 server = app.server
 app.layout = html.Div([
@@ -107,6 +109,7 @@ app.layout = html.Div([
                                  options=all_sectors,
                                  value='Insurance',
                                  # style={'width': "40%"}
+                                 optionHeight=50
                                  ),
                 ], className="mainChart1-dropdown-col"),
                 html.Div([
@@ -166,7 +169,7 @@ app.layout = html.Div([
 
 
 
-], className='DC-Backdrop')
+], style={'backgroundColor': colors['background']}) # className='DC-Backdrop')
 
 app.css.append_css({
     'external_url': "https://codepen.io/chriddyp/pen/bWLwgP.css"
