@@ -96,6 +96,7 @@ app.layout = html.Div([
             html.Li(['You may select items in the Legend to temporarily remove data in that specific year']),
             html.Li(['Financial Statements Data is only limited to the Top-10 Companies for better visualization']),
             html.Li(['Rolling returns only limited to the range of -100% to 100% for better visualization']),
+            html.Li(['Rolling returns are calculated over the range from 2010 to 2019']),
             html.Li(['Do let me know if there are any discrepancies in the data'])
         ], className='Header-Notes'),
 
@@ -105,6 +106,7 @@ app.layout = html.Div([
         html.Div([
             html.Div([
                 html.Div([
+                    html.A('Sector'),
                     dcc.Dropdown(id="slct_sector",
                                  options=all_sectors,
                                  value='Insurance',
@@ -113,6 +115,7 @@ app.layout = html.Div([
                                  ),
                 ], className="mainChart1-dropdown-col"),
                 html.Div([
+                    html.A('Statement Type'),
                     dcc.Dropdown(id="slct_stmt",
                                  options=[{'label': k, 'value': k} for k in all_options.keys()],
                                  multi=False,
@@ -121,6 +124,7 @@ app.layout = html.Div([
                                  ),
                 ], className="mainChart1-dropdown-col"),
                 html.Div([
+                    html.A('Item'),
                     dcc.Dropdown(id="slct_label",
                                  value='totalRevenue',
                                  # style={'width': "40%"},
@@ -142,6 +146,7 @@ app.layout = html.Div([
         html.Div([
             html.Div([
                 html.Div([
+                    html.A('Sector'),
                     dcc.Dropdown(id="slct_sector2",
                                  options=all_sectors,
                                  value='Insurance',
@@ -149,6 +154,7 @@ app.layout = html.Div([
                                  ),
                 ], className="mainChart1-dropdown-col"),
                 html.Div([
+                    html.A('Period'),
                     dcc.Dropdown(id="slct_dur",
                                  options=return_dur_options,
                                  value='1mth',
@@ -267,14 +273,21 @@ def update_graph_2(option_slctd1, option_slctd2):
     fig = px.box(dff, x="Company_Name", y=option_slctd2,
                  template='plotly_dark',
                  width=1100, height=600,
-
                  )
+
+    # fig.add_trace(px.bar())
+
     cht2_title = '{} Rolling Returns for {} Sector'.format(option_slctd2, option_slctd1)
     fig.update_layout(title=cht2_title,
                       xaxis_title="Company Names",
                       yaxis_title="{} % Change".format(option_slctd2),
                       )
     fig.update_yaxes(range=[-100, 100])
+
+
+
+
+
     return fig
 
 
