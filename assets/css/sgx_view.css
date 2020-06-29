@@ -12,7 +12,7 @@
     /*border: greenyellow solid;*/
     width: 4000px;
     height: 2800px;
-    /*margin: 50px;*/
+    margin: 50px;
 }
 .col1{
     order: 1;
