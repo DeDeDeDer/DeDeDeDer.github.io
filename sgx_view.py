@@ -554,12 +554,12 @@ def update_graph2(option_slctd1, option_slctd2, option_slctd3):
     x_labels[pos2:pos2] = ['retainedEarnings']
     req_measures[pos2:pos2] = ['relative']
     # adjust due to yahoo error
-    pos3 = len(y_labels)
-    adjust3 = y_labels[x_labels.index("totalLiab")]+y_labels[x_labels.index("totalStockholderEquity")]
-    y_labels[pos3:pos3] = [adjust3]
-    x_labels[pos3:pos3] = ['totalLiability&StockholdersEquity']
-    req_measures[pos3:pos3] = ['absolute']
-    x_labels[x_labels.index("totalLiab")] = 'netAssetLiability'
+    # pos3 = len(y_labels)
+    # adjust3 = y_labels[x_labels.index("totalStockholderEquity")]+abs(y_labels[x_labels.index("totalLiab")])
+    # y_labels[pos3:pos3] = [adjust3]
+    # x_labels[pos3:pos3] = ['totalLiability&StockholdersEquity']
+    # req_measures[pos3:pos3] = ['absolute']
+    # x_labels[x_labels.index("totalLiab")] = 'netAssetLiability'
 
     # Graph
     import plotly.graph_objects as go
