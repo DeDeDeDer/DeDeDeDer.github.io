@@ -56,8 +56,8 @@
 .col2-row2{display: flex;}
 .col2-row2-col1{order: 1;}
 .col2-row2-col2{order: 2;}
-.col2-row3{display: flex;width: 800px;border: darkred solid;  padding:10px; margin:10px}
-.col2-row3-col1{order: 1;flex: 2;padding:5px; margin:5px}
+.col2-row3{display: flex;width: 250px;border: darkred solid;  padding:10px; margin:10px}
+.col2-row3-col1{order: 1;flex: 1;padding:5px; margin:5px}
 .col2-row3-col2{order: 2;flex: 2;padding:5px; margin:5px}
 .col2-row3-col3{order: 3;flex: 2;padding:5px; margin:5px}
 .col2-row4{display: flex;}

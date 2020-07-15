@@ -42,6 +42,9 @@ fn = 'For_Github_3.csv'
 df_stock_screen = pd.read_csv(src_dir0 + fn)
 xyz_cols = list(df_stock_screen.columns)
 xyz_cols = sorted(xyz_cols)
+xyz_cols = ["Mkt Cap ($M)", "Tot. Rev ($M)", "GTI Score",
+                   "4-wk %Pr. Chg.", "13-wk %Pr. Chg.", "26-wk %Pr. Chg.", "52-wk %Pr. Chg.",
+                   "Net Profit %", "ROE %", "Debt/Equity", "1-yr %Rev. Chg.", "Price/Book Value"]
 ls_dict_xyz_options = [{'label': k, 'value': k} for k in xyz_cols]
 
 
@@ -101,6 +104,7 @@ all_options = {
     'Balance_Sheet': [u'totalLiab', 'totalAssets', 'cash', 'totalStockholderEquity'],
     'Cash_Flow': [u'dividendsPaid', 'totalCashflowsFromInvestingActivities', 'totalCashFromFinancingActivities', 'totalCashFromOperatingActivities', 'repurchaseOfStock', 'issuanceOfStock']
 }
+
 
 
 app = dash.Dash(__name__)
@@ -250,7 +254,7 @@ app.layout = html.Div([
                 html.Div([
                     # X Column
                     html.Div([
-                        html.A('X Column'),
+                        html.A('Measurement'),
                         dcc.Dropdown(id="slct_xyz_col_x",
                                      options=ls_dict_xyz_options,
                                      multi=False,
@@ -258,26 +262,26 @@ app.layout = html.Div([
                                      # style={'width': "40%"}
                                      ),
                     ], className='col2-row3-col1'),
-                    # Y Column
-                    html.Div([
-                        html.A('Y Column'),
-                        dcc.Dropdown(id="slct_xyz_col_y",
-                                     options=ls_dict_xyz_options,
-                                     multi=False,
-                                     value='Tot. Rev ($M)',
-                                     # style={'width': "40%"}
-                                     ),
-                    ], className='col2-row3-col2'),
-                    # Z Column
-                    html.Div([
-                        html.A('Y Column'),
-                        dcc.Dropdown(id="slct_xyz_col_z",
-                                     options=ls_dict_xyz_options,
-                                     multi=False,
-                                     value='GTI Score',
-                                     # style={'width': "40%"}
-                                     ),
-                    ], className='col2-row3-col3'),
+                    # # Y Column
+                    # html.Div([
+                    #     html.A('Y Column'),
+                    #     dcc.Dropdown(id="slct_xyz_col_y",
+                    #                  options=ls_dict_xyz_options,
+                    #                  multi=False,
+                    #                  value='Tot. Rev ($M)',
+                    #                  # style={'width': "40%"}
+                    #                  ),
+                    # ], className='col2-row3-col2'),
+                    # # Z Column
+                    # html.Div([
+                    #     html.A('Y Column'),
+                    #     dcc.Dropdown(id="slct_xyz_col_z",
+                    #                  options=ls_dict_xyz_options,
+                    #                  multi=False,
+                    #                  value='GTI Score',
+                    #                  # style={'width': "40%"}
+                    #                  ),
+                    # ], className='col2-row3-col3'),
 
                 ], className='col2-row3'),
                 # Box- Plot & 3D-Plot
@@ -321,6 +325,8 @@ def update_sub_companies(option_slctd1):
     #for a in ls_coy_sorted:
     #    ls_dict_coy_sorted.append({"label": a, "value": a})
     ls_dict_coy_sorted=[{'label': k, 'value': k} for k in ls_coy_sorted]
+    #ls_dict_coy_sorted = sorted(dc_selected_coys)
+    #ls_dict_coy_sorted = [{'label': k, 'value': k} for k in ls_coy_sorted]
     print('final - coys for dropdown')
     print(ls_dict_coy_sorted)
     return ls_dict_coy_sorted
@@ -723,6 +729,24 @@ def update_graph_4(option_slctd1, option_slctd2, option_slctd3):
         xaxis_title = "% Return",
         yaxis_title = "Value",template='plotly_dark'
     )
+    import plotly.graph_objects as go
+    if len(dff) == 0:
+        # fig.text(0.5, 0.5, "No data available", fontsize=14)
+        # fig = go.Figure(
+        #     data=[go.Scatter(y=[1])]
+        # ,
+        #     layout=go.Layout(annotations=[go.layout.Annotation(
+        #         text="No Data was available",
+        #     )])
+        # )
+        fig.update_layout(
+            title="Unfortunately no data was found",
+            # showlegend=True,
+            width=700, height=500,
+            xaxis_title="% Return",
+            yaxis_title="Value", template='plotly_dark'
+        )
+        # fig.add_trace(go.Scatter(x=[0], y=[0.5]))
     return fig
 
 
@@ -772,21 +796,38 @@ def update_graph5(option_slctd1, option_slctd2, option_slctd3):
 @app.callback(
     Output(component_id='xyz_benchmark', component_property='figure'),
     [Input(component_id='slct_xyz_col_x', component_property='value'),
-        Input(component_id='slct_xyz_col_y', component_property='value'),
-    Input(component_id='slct_xyz_col_z', component_property='value'),
+#        Input(component_id='slct_xyz_col_y', component_property='value'),
+#    Input(component_id='slct_xyz_col_z', component_property='value'),
 Input(component_id='slct_sector', component_property='value'),
 ]
 )
-def update_graph_6(option_slctd1, option_slctd2, option_slctd3, option_slctd4):
+def update_graph_6(option_slctd1, option_slctd4):
 
+    # dff = df_stock_screen.copy()
+    # dff = dff[dff["Sector"] == option_slctd4]
+    # dff = dff[[option_slctd1, option_slctd2, option_slctd3, 'Trading Name']]
+    # dff = dff.dropna(how='any')
+    # print('3D PLOT'*50)
+    # print(dff)
+    # fig = px.scatter_3d(dff, x=option_slctd1,y=option_slctd2,z=option_slctd3, color='Trading Name')
+    #
+    #
+    # title_ = 'Dimensions for {} Sector'.format(option_slctd4)
+    # fig.update_layout(
+    #     title=title_,
+    #     # showlegend=True,
+    #     width=700, height=500,
+    #     xaxis_title = "% Return",
+    #     yaxis_title = "Value",template='plotly_dark'
+    # )
+
+    #ff = option_slctd2
+    #fff = option_slctd3
     dff = df_stock_screen.copy()
     dff = dff[dff["Sector"] == option_slctd4]
-    dff = dff[[option_slctd1, option_slctd2, option_slctd3, 'Trading Name']]
+    dff = dff[[option_slctd1, "Sector", 'Trading Name']]
     dff = dff.dropna(how='any')
-    print('3D PLOT'*50)
-    print(dff)
-    fig = px.scatter_3d(dff, x=option_slctd1,y=option_slctd2,z=option_slctd3, color='Trading Name')
-
+    fig = px.treemap(dff, path=['Sector', 'Trading Name'], color=option_slctd1, color_continuous_scale='rdylgn')
     title_ = 'Dimensions for {} Sector'.format(option_slctd4)
     fig.update_layout(
         title=title_,
