@@ -7,19 +7,54 @@
 			<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		</head>
 		<body>
-			<nav>
 			<!--
-	    		<ul>
-	        		<li><a href="/">Home</a></li>
-		        	<li><a href="/about">About</a></li>
-	    		</ul>
-			
+			<nav>
+				<ul>
+					<li><a href="/">Home</a></li>
+					<li><a href="/about">About</a></li>
+				</ul>
 			</nav>
 			<div class="container">
+			</div>
 			-->
-			{{ content }}
+			<body class="is-preload">
+			<!-- Wrapper -->
+				<div id="wrapper">
+
+					<!-- Header -->
+						<header id="header">
+							<div class="inner">
+
+								<!-- Logo -->
+									<a href="index.html" class="logo">
+										<span class="symbol"><img src="images/logo.svg" alt="" /></span><span class="title">Phantom</span>
+									</a>
+
+								<!-- Nav -->
+									<nav>
+										<ul>
+											<li><a href="#menu">Menu</a></li>
+										</ul>
+									</nav>
+
+							</div>
+						</header>
+
+					<!-- Menu -->
+						<nav id="menu">
+							<h2>Menu</h2>
+							<ul>
+								<li><a href="index.html">Home</a></li>
+								<li><a href="/about/index.html">About</a></li>
+							</ul>
+						</nav>
+				</div>
+				{{ content }}
+			</div>
+				
 			
-			</div><!-- /.container -->
+			
+			
 			<footer>
 			<!--
 	    		<ul>
